@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Admin Dashboard | Add a Subject";
+}
+@model List<FinalProject.Areas.Admin.Models.Standard>
+<div id="app">
+    <div class="main-wrapper">
+        @Html.Partial("Navigation")
+        <!-- Main Content -->
+        <div class="main-content">
+            <section>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Add a Subject</h4>
+                            </div>
+                            <div class="card-body">
+                                @using (Html.BeginForm("Add", "Subject", FormMethod.Post, new { @class = "needs-validation", @novalidate = "" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <div class="row">
+                                        <div class="form-group col-12 col-md-12 col-lg-6">
+                                            <label>Select Standard</label>
+                                            <select class="form-control selectric" name="std_id" required>
+                                                @foreach (var item in Model)
+                                                {
+                                                    <option value="@item.Id">@item.BoardName &mdash; @item.StandardName</option>
+                                                }
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Please Select a Standard
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-12 col-md-12 col-lg-6">
+                                            <label>Subject Name</label>
+                                            <input type="text" class="form-control" name="subject_name" required autofocus>
+                                            <div class="invalid-feedback">
+                                                Please fill in the Subject name
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 mr-3 text-right">
+                                        <button type="submit" class="btn btn-primary btn-lg btn-icon icon-right" tabindex="4">
+                                            Add Subject
+                                        </button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        @Html.Partial("Footer")
+    </div>
+</div>
+
+

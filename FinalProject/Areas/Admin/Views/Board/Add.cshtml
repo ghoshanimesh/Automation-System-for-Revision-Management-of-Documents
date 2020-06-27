@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Admin Dashboard | Add a Board";
+}
+<div id="app">
+    <div class="main-wrapper">
+        @Html.Partial("Navigation")
+        <!-- Main Content -->
+        <div class="main-content">
+            <section>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Add a Board</h4>
+                            </div>
+                            <div class="card-body">
+                                @using (Html.BeginForm("Add", "Board", FormMethod.Post, new { @class = "needs-validation", @novalidate = "" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <div class="form-group">
+                                        <label>Board Name</label>
+                                        <input type="text" class="form-control" name="board_name" required autofocus>
+                                        <div class="invalid-feedback">
+                                            Please fill in the Board name
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 mr-3 text-right">
+                                        <button type="submit" class="btn btn-primary btn-lg btn-icon icon-right" tabindex="4">
+                                            Add Board
+                                        </button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        @Html.Partial("Footer")
+    </div>
+</div>
+

@@ -1,0 +1,95 @@
+﻿@{
+    ViewBag.Title = "Document Repository";
+}
+@model Tuple<Dictionary<int, string>, List<FinalProject.Models.Commit>>
+<div id="app">
+    <div class="main-wrapper">
+        @Html.Partial("Navigation")
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <section class="section">
+
+                <div class="section-header">
+                    <h4>Upload New Version</h4>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        @using (Html.BeginForm("DiffDocument", "DocumentStream", FormMethod.Post, new { enctype = "multipart/form-data", @class = "needs-validation", @novalidate = "" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="row">
+                                <div class="form-group col-12 col-md-12 col-lg-9">
+                                    <label>Upload New Document</label>
+                                    <div class="form-control custom-file">
+                                        <input type="file" name="book_doc" class="custom-file-input" id="customFile" required>
+                                        <label class="custom-file-label" id="custom-file-name" for="customFile">Choose file</label>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="doc_id" value="@ViewBag.DocId">
+                                <div class="col-lg-3 mt-4 text-right col-12 col-md-12">
+                                    <button type="submit" class="btn btn-primary btn-lg btn-icon icon-right mt-1" tabindex="4">
+                                        Upload Document
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                @if (ViewBag.Route == "updoc")
+                {
+                    <div class="float-right">
+                        <a href="@Url.Action("ViewDiff","DocumentStream")" class="btn btn-primary mr-2" target="_blank">View Difference</a>
+                        <button class="btn btn-primary mr-2" id="commit_new_file" data-doc_id="@ViewBag.DocId">
+                            Commit File
+                        </button>
+                    </div>
+                }
+            </section>
+        </div>
+        @Html.Partial("Footer")
+    </div>
+</div>
+<form class="modal-part" id="modal-form-part">
+    <div class="form-group col-12 col-md-12 col-lg-12">
+        <label>Commit Comment</label>
+        <input type="text" class="form-control" name="comment" required>
+        <div class="invalid-feedback">
+            Please fill in the comment
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="form-label">Version Type</label>
+        <div class="selectgroup w-100">
+            <label class="selectgroup-item">
+                <input type="radio" name="value" value="1" class="selectgroup-input">
+                <span class="selectgroup-button">Major Version</span>
+            </label>
+            <label class="selectgroup-item">
+                <input type="radio" name="value" value="2" class="selectgroup-input">
+                <span class="selectgroup-button">Normal Commit</span>
+            </label>
+        </div>
+    </div>
+</form>
+@using (Html.BeginForm("Index", "DocumentStream", FormMethod.Post, new { id = "route_final" }))
+{
+    <input type="hidden" value="@ViewBag.DocId" name="doc_id" />
+}
+@section scripts{
+    <script>
+        document.getElementById('customFile').onchange = function () {
+            document.getElementById('custom-file-name').innerHTML = this.files[0].name;
+        }
+    </script>
+    @if (ViewBag.Route == "error")
+    {
+        <script>
+            iziToast.error({
+                title: 'Error! File Uploaded Not Found',
+                message: 'The file uploaded not found! Please upload a new version',
+                position: 'topRight'
+            });
+        </script>
+    }
+}

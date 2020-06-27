@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<!-- Header -->
+<header class="align--center pt3">
+    <div class="container--lg border--bottom pb3">
+        <img class="logo mb3" src="~/Content/assets/img/logo_detailed.svg" alt="Carta">
+        <h1 class="mb2 home-h1">A new take on collaborative docs.</h1>
+        <span>
+            @Html.ActionLink("Login or SignUp", "Index", "Login", new { login = "initial" }, new { @class = "btn btn-primary btn-lg home-login-btn" })
+        </span>
+    </div>
+</header>
+<main>
+    <!-- Feature list -->
+    <div class="container pt3 mt2 text--gray align--center">
+        <p class="mb3">Great for companies with up to 100&nbsp;employees.</p>
+        <div class="grid-row-home">
+            <div class="grid-column-home span-half mb3">
+                <img class="illustration--small mb1" src="~/Content/assets/img/home-img/assign.svg" alt="Assign to others">
+                <p>Assign to others</p>
+            </div>
+            <div class="grid-column-home span-half mb3">
+                <img class="illustration--small mb1" src="~/Content/assets/img/home-img/connected.svg" alt="Stay connected">
+                <p>Stay connected</p>
+            </div>
+            <div class="grid-column-home span-half mb3">
+                <img class="illustration--small mb1" src="~/Content/assets/img/home-img/messaging.svg" alt="Fast messaging">
+                <p>Fast messaging</p>
+            </div>
+            <div class="grid-column-home span-half mb3">
+                <img class="illustration--small mb1" src="~/Content/assets/img/home-img/mail.svg" alt="Share with others">
+                <p>Share with others</p>
+            </div>
+        </div>
+    </div>
+    <!-- Mentioned -->
+    <div class="container--lg pt3 pb3 mb2 align--center">
+        <p class="mb2">Mentioned in</p>
+        <span><img class="mentioned" src="~/Content/assets/img/home-img/mentioned.svg" alt="New York Times, TC, Product Hunt, Recode"></span>
+    </div>
+</main>

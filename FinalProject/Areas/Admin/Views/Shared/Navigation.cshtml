@@ -1,0 +1,79 @@
+﻿<div class="navbar-bg"></div>
+<nav class="navbar navbar-expand-lg main-navbar">
+    <a href="index.html" class="navbar-brand sidebar-gone-hide">
+        <img src="~/Content/assets/img/logo.svg" alt="" width="125px">
+    </a>
+    <a href="#" class="nav-link sidebar-gone-show mt-4" data-toggle="sidebar"><i class="fas fa-bars fa-3x"></i></a>
+    <div class="nav-collapse">
+    </div>
+    <form class="form-inline ml-auto"></form>
+    <ul class="navbar-nav navbar-right">
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                <img alt="image" src="~/Content/assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
+                <div class="d-sm-none d-lg-inline-block">Hi, @Session["user_fullname"]</div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+                <div class="dropdown-title">Logged in 5 min ago</div>
+                <a href="features-profile.html" class="dropdown-item has-icon">
+                    <i class="far fa-user"></i> Profile
+                </a>
+                <a href="features-activities.html" class="dropdown-item has-icon">
+                    <i class="fas fa-bolt"></i> Activities
+                </a>
+                <a href="features-settings.html" class="dropdown-item has-icon">
+                    <i class="fas fa-cog"></i> Settings
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="@Url.Action("Logout", "DashBoard")" class="dropdown-item has-icon text-danger">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </li>
+    </ul>
+</nav>
+<div class="main-sidebar">
+    <aside id="sidebar-wrapper">
+        <div class="sidebar-brand sidebar-gone-show">
+            <a href="index.html">
+                <img src="~/Content/assets/img/logo-dark.svg" alt="" width="80px">
+            </a>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="menu-header">Dashboard</li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Home</span></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        @Html.ActionLink("Dashboard", "Index", "DashBoard", null, new { @class = "nav-link" })
+                    </li>
+                    <li>
+                        @Html.ActionLink("Board", "Index", "Board", null, new { @class = "nav-link" })
+                    </li>
+                    <li>
+                        @Html.ActionLink("Standard", "Index", "Standard", null, new { @class = "nav-link" })
+                    </li>
+                    <li>
+                        @Html.ActionLink("Subject", "Index", "Subject", null, new { @class = "nav-link" })
+                    </li>
+                    <li>
+                        @Html.ActionLink("Book", "Index", "Book", null, new { @class = "nav-link" })
+                    </li>
+                    @*<li>
+            @Html.ActionLink("Assign Collaborators", "/", "Admin/DashBoard", null, new { @class = "nav-link" })
+        </li>*@
+                </ul>
+            </li>
+            @*<li class="nav-item dropdown active">
+                    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Layout</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a class="nav-link" href="layout-default.html">Default Layout</a></li>
+                        <li class="active"><a class="nav-link" href="layout-transparent.html">Transparent Sidebar</a></li>
+                        <li><a class="nav-link" href="layout-top-navigation.html">Top Navigation</a></li>
+                    </ul>
+                </li>*@
+        </ul>
+    </aside>
+</div>
+
+

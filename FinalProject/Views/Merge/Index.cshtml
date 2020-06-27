@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Merge Documents";
+}
+@model Dictionary<int,string>
+<div id="app">
+    <div class="main-wrapper">
+        @Html.Partial("Navigation")
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <section class="section">
+                <div class="section-header">
+                    <h1>Merge Documents</h1>
+                </div>
+                <div class="card pt-4 card-primary">
+                    @using (Html.BeginForm("MergeRequest", "Merge", FormMethod.Post, new { @class = "needs-validation", @novalidate = "" }))
+                    {
+                        @Html.AntiForgeryToken()
+                    <div class="row px-4">
+                        <div class="form-group col-12 col-md-12 col-lg-10">
+                            <select data-doc_id="@ViewBag.DocId" id="merge_branch_select" class="form-control selectric" name="merge_branch_id" required>
+                                @foreach (var item in Model)
+                                {
+                                    <option value="@item.Key">@item.Value</option>
+                                }
+                            </select>
+                        </div>
+                        <input type="hidden" value="@ViewBag.DocId" name="doc_id" />
+                        <div class="col-lg-2 text-right col-12 col-md-12">
+                            <button type="submit" class="btn btn-primary btn-lg" tabindex="4">
+                                Merge Branch
+                            </button>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </section>
+        </div>
+        @Html.Partial("Footer")
+    </div>
+</div>

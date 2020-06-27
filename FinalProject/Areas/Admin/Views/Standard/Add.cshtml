@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Admin Dashboard | Add a Standard";
+}
+@model List<FinalProject.Areas.Admin.Models.Board>
+<div id="app">
+    <div class="main-wrapper">
+        @Html.Partial("Navigation")
+        <!-- Main Content -->
+        <div class="main-content">
+            <section>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Add a Standard</h4>
+                            </div>
+                            <div class="card-body">
+                                @using (Html.BeginForm("Add", "Standard", FormMethod.Post, new { @class = "needs-validation", @novalidate = "" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <div class="row">
+                                        <div class="form-group col-12 col-md-12 col-lg-6">
+                                            <label>Select Board</label>
+                                            <select class="form-control selectric" name="board_id" required>
+                                                @foreach (var item in Model)
+                                                {
+                                                    <option value="@item.Id">@item.BoardName</option>
+                                                }
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Please Select a Board
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-12 col-md-12 col-lg-6">
+                                            <label>Standard Name</label>
+                                            <input type="text" class="form-control" name="standard_name" required autofocus>
+                                            <div class="invalid-feedback">
+                                                Please fill in the Standard name
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 mr-3 text-right">
+                                        <button type="submit" class="btn btn-primary btn-lg btn-icon icon-right" tabindex="4">
+                                            Add Standard
+                                        </button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        @Html.Partial("Footer")
+    </div>
+</div>
+
+

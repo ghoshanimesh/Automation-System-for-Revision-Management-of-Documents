@@ -1,0 +1,86 @@
+﻿@{
+    ViewBag.Title = "Register";
+}
+<div id="app">
+    <section class="section">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+                    <div class="login-brand">
+                        <img src="~/Content/assets/img/logo-dark.svg" alt="logo" width="100" class="shadow-light rounded-circle bg-white p-2" height="100">
+                    </div>
+                    @if (@ViewBag.Message == "Failed")
+                    {
+                        <div class="alert alert-danger alert-has-icon">
+                            <div class="alert-icon"><i class="fa fa-times"></i></div>
+                            <div class="alert-body pt-1">
+                                The username or email id is already registered
+                            </div>
+                        </div>
+                    }
+                <div class="card card-primary">
+                    <div class="card-header"><h4>Register</h4></div>
+                   
+                    <div class="card-body">
+                        @using (Html.BeginForm("Index", "Register", FormMethod.Post, new { @class = "needs-validation", @novalidate = "" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label for="user_fullname">Full Name</label>
+                                    <input id="user_fullname" type="text" class="form-control" name="user_fullname" autofocus>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="user_name">User Name</label>
+                                    <input id="user_name" type="text" class="form-control" name="user_name">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input id="user_email" type="email" class="form-control" name="user_email">
+                                <div class="invalid-feedback">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label for="password" class="d-block">Password</label>
+                                    <input id="user_password" type="password" class="form-control pwstrength" data-indicator="pwindicator" name="user_password">
+                                    <div id="pwindicator" class="pwindicator">
+                                        <div class="bar"></div>
+                                        <div class="label"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="password2" class="d-block">Password Confirmation</label>
+                                    <input id="password2" type="password" class="form-control" name="password-confirm">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" name="agree" class="custom-control-input" id="agree">
+                                    <label class="custom-control-label" for="agree">I agree with the terms and conditions</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                    Register
+                                </button>
+                            </div>
+
+                        }
+                            <div class="mt-5 text-center">
+                                Have an account? @Html.ActionLink("Sign In", "Index", "Login", null, null)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="simple-footer">
+                        Copyright &copy; docs.in 2019
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

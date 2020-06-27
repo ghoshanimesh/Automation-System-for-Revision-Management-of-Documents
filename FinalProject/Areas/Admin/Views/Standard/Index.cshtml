@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "Admin Dashboard | Standard";
+}
+@model List<FinalProject.Areas.Admin.Models.Standard>
+<div id="app">
+    <div class="main-wrapper">
+        @Html.Partial("Navigation")
+        <!-- Main Content -->
+        <div class="main-content">
+            <section>
+                <div class="row mb-2">
+                    <div class="col-12 text-right mb-2">
+                        <a href="@Url.Action("Add", "Standard")" class="btn btn-primary">Add a Standard</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Standard</h4>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Board Name</th>
+                                                <th scope="col">Standard</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                        @{
+                                            int num = 1;
+                                            foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>@num</td>
+                                                    <td>@item.BoardName</td>
+                                                    <td>@item.StandardName</td>
+                                                    <td>
+                                                        <a href="@Url.Action("Edit", "Standard", new { id = item.Id })" class="btn btn-warning mr-2">
+                                                            <i class="fa fa-pencil-alt"></i>
+                                                        </a>
+                                                        <button class="btn btn-danger mr-2" id="modal-standard-@item.Id" data-standard-id="@item.Id" data-standard-name="@item.StandardName" data-board-name="@item.BoardName">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                num = num + 1;
+                                            }
+                                        }
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        @Html.Partial("Footer")
+    </div>
+</div>

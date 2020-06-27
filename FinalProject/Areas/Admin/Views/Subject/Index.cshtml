@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "Admin Dashboard | Subject";
+}
+@model List<FinalProject.Areas.Admin.Models.Subject>
+<div id="app">
+    <div class="main-wrapper">
+        @Html.Partial("Navigation")
+        <!-- Main Content -->
+        <div class="main-content">
+            <section>
+                <div class="row mb-2">
+                    <div class="col-12 text-right mb-2">
+                        <a href="@Url.Action("Add", "Subject")" class="btn btn-primary">Add a Subject</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Subject</h4>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Board</th>
+                                                <th scope="col">Standard</th>
+                                                <th scope="col">Subject</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                        @{
+                                            int num = 1;
+                                            foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>@num</td>
+                                                    <td>@item.BoardName</td>
+                                                    <td>@item.StdName</td>
+                                                    <td>@item.SubjectName</td>
+                                                    <td>
+                                                        <a href="@Url.Action("Edit", "Subject", new { id = item.Id })" class="btn btn-warning mr-2">
+                                                            <i class="fa fa-pencil-alt"></i>
+                                                        </a>
+                                                        <button class="btn btn-danger mr-2" id="modal-subject-@item.Id" data-subj-id="@item.Id" data-subj-name="@item.SubjectName" data-board-name="@item.BoardName" data-std-name="@item.StdName">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                num = num + 1;
+                                            }
+                                        }
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        @Html.Partial("Footer")
+    </div>
+</div>

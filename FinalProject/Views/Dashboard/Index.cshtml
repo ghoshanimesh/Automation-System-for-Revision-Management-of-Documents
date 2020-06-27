@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+}
+@model List<FinalProject.Models.CollaboratorDocument>
+<div id="app">
+    <div class="main-wrapper">
+        @Html.Partial("Navigation")
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <section class="section">
+                <div class="section-header">
+                    <h1>Available Documents</h1>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-12 col-md-12 col-lg-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="mb-2 text-center">@item.DocumentName</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>@item.BoardName &mdash; @item.StandardName &mdash; @item.SubjectName</p>
+                                        <p>@item.Language Language &mdash; @item.Level Level</p>
+                                        <p>Last Commit at @DateTime.Parse(@item.LastModifiedOn).ToString("dd-MM-yyyy")</p>
+                                        <p>Current Version - @item.CurrentVersion</p>
+                                        <div class="float-right">
+                                            @using (Html.BeginForm("Index", "DocumentStream", FormMethod.Post))
+                                            {
+                                                <input type="hidden" value="@item.DocId" name="doc_id" />
+                                                <button type="submit" class="btn btn-primary">View Document Stream</button>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </section>
+        </div>
+        @Html.Partial("Footer")
+    </div>
+</div>

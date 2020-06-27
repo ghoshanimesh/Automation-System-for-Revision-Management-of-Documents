@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Admin Dashboard | Assign Collaborator";
+}
+@model List<FinalProject.Areas.Admin.Models.SubEditor>
+<div id="app">
+    <div class="main-wrapper">
+        @Html.Partial("Navigation")
+        <!-- Main Content -->
+        <div class="main-content">
+            <section>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Assign Collaborator</h4>
+                            </div>
+                            <div class="card-body">
+                                @using (Html.BeginForm("AssignCollaborator", "Book", FormMethod.Post, new { @class = "needs-validation", @novalidate = "" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <div class="row">
+                                        <div class="form-group col-12 col-md-12 col-lg-12">
+                                            <label>Select Collaborators</label>
+                                            <select class="form-control select2" multiple="" name="collab_id" required>
+                                                @foreach (var item in Model)
+                                                {
+                                                    <option value="@item.UserId">@item.Username &minus; @item.UserFullname</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <input hidden value="@ViewBag.DocId" name="doc_id" />
+                                    </div>
+                                    if (Model.Count > 0)
+                                    {
+                                        <div class="mb-3 mr-3 text-right">
+                                            <button type="submit" class="btn btn-primary btn-lg btn-icon icon-right" tabindex="4">
+                                                Assign Collaborator
+                                            </button>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="mb-3 mr-3 text-right">
+                                            <button type="submit" class="disabled btn btn-primary btn-lg btn-icon icon-right" tabindex="4">
+                                                Assign Collaborator
+                                            </button>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        @Html.Partial("Footer")
+    </div>
+</div>

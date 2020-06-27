@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/icons")
+    @Styles.Render("~/Content/dropdowns")
+    @Styles.Render("~/Content/basecss")
+    @if (@ViewBag.Title == "Login")
+    {
+        @Styles.Render("~/Content/socialcss")
+    }
+
+</head>
+<body class="layout-2">
+    @RenderBody()
+
+    @Scripts.Render("~/Content/basejs")
+    @Scripts.Render("~/Content/templatejs")
+    @Scripts.Render("~/Content/vendorjs")
+
+    @Scripts.Render("~/Content/modal")
+    @if (@ViewBag.Title == "Register")
+    {
+        @Scripts.Render("~/Content/register")
+    }
+    @if (@ViewBag.Title == "Admin Dashboard | View Repository")
+    {
+        @Scripts.Render("~/Content/internal-pages/render-admin-commits")
+    }
+    else
+    {
+        @Scripts.Render("~/Content/internal-pages")
+    }
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "Admin Dashboard | Book";
+}
+@model List<FinalProject.Areas.Admin.Models.Book>
+<div id="app">
+    <div class="main-wrapper">
+        @Html.Partial("Navigation")
+        <!-- Main Content -->
+        <div class="main-content">
+            <section>
+                <div class="row mb-2">
+                    <div class="col-12 text-right mb-2">
+                        <a href="@Url.Action("Add", "Book")" class="btn btn-primary">Add a Book</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Books</h4>
+                            </div>
+                        </div>
+
+                        @foreach (var item in Model)
+                        {
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>@item.DocumentName</h4>
+                                    <div class="card-header-action mb-3">
+                                        <a href="@Url.Action("DownloadFile", "Book", new { id = item.DocId })" class="btn btn-primary mr-2">
+                                            <i class="fa fa-download"></i>
+                                        </a>
+                                        @using (Html.BeginForm("Index", "ViewRepository", FormMethod.Post, new { style = "display:inline" }))
+                                        {
+                                            <input type="hidden" value="@item.DocId" name="doc_id" />
+                                            <button type="submit" class="btn btn-info mr-2"><i class="fa fa-eye"></i></button>
+                                        }
+                                        <a href="@Url.Action("AssignCollaborator", "Book", new { id = item.DocId })" class="btn btn-dark mr-2">
+                                            <i class="fa fa-user-friends"></i>
+                                            <i class="fa fa-plus"></i>
+                                        </a>
+                                        <a href="@Url.Action("Edit", "Book", new { id = item.DocId })" class="btn btn-warning mr-2">
+                                            <i class="fa fa-pencil-alt"></i>
+                                        </a>
+                                        <button class="btn btn-danger mr-2" id="modal-board-@item.DocId" data-book-id=@item.DocId data-book-name="@item.DocumentName" data-sll-id="@item.Sll_Id">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                        <a data-collapse="#mycard-collapse-@item.DocId" class="btn" href="#"><i class="fas fa-plus fa-2x"></i></a>
+                                    </div>
+                                </div>
+                                <div class="collapse hide" id="mycard-collapse-@item.DocId">
+                                    <div class="card-body">
+                                        <p>Board - @item.BoardName</p>
+                                        <p>Standard - @item.StandardName</p>
+                                        <p>Subject - @item.SubjectName</p>
+                                        <p>Mode of Language - @item.Language</p>
+                                        <p>Level - @item.Level</p>
+                                        <p>Current Version - @item.CurrentVersion</p>
+                                        <p>Last Commit at @DateTime.Parse(@item.LastModifiedOn).ToString("dd-MM-yyyy")</p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </section>
+        </div>
+        @Html.Partial("Footer")
+    </div>
+</div>
+

@@ -1,0 +1,95 @@
+﻿@{
+    ViewBag.Title = "Document Repository";
+}
+@model Tuple<Dictionary<int,string>, List<FinalProject.Models.Commit>>
+<div id="app">
+    <div class="main-wrapper">
+        @Html.Partial("Navigation")
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <section class="section">
+
+                <div class="section-header">
+                    <h4>Version History - @ViewBag.DocTitle</h4>
+                </div>
+                <div class="card pt-4 card-primary">
+                    <div class="row px-4">
+                        <div class="form-group col-12 col-md-4 col-lg-4">
+                            <select data-doc_id="@ViewBag.DocId" id="branch_select" class="form-control selectric" name="std_id" required>
+                                @foreach (var item in Model.Item1)
+                                {
+                                    if (item.Value == "master")
+                                    {
+                                        <option value="@item.Key" selected>@item.Value</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.Key">@item.Value</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <div class="text-center">
+                                <div class="badges ml-4 mt-1">
+                                    <span class="badge badge-primary px-4_5 py-2 text-big">@ViewBag.CommitCount Commits</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <div class="text-center">
+                                <div class="badges ml-4 mt-1">
+                                    <span class="badge badge-primary px-4_5 py-2 text-big">@Model.Item1.Count Branches</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body p-0 m-0 pt-3">
+                        <div class="table-responsive table-invoice">
+                            <table class="table table-striped" id="commit_table">
+                                <thead>
+                                    <tr>
+                                        <th>Version</th>
+                                        <th>Comment</th>
+                                        <th>Last Commit On</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="commit_table_body">
+                                    @foreach (var item in Model.Item2)
+                                    {
+                                        <tr class="commit_row">
+                                            <td>@item.Version</td>
+                                            <td>@item.Comment</td>
+                                            <td>@item.RevDate</td>
+                                            <td>
+                                                <a href="@Url.Action("DownloadFile", "DocumentStream", new { doc_ver_id = item.Id })" class="btn btn-primary mr-2">
+                                                    <i class="fa fa-download"></i>
+                                                </a>
+                                                <a href="#" class="btn btn-info mr-2" data-doc_ver_id="@item.Id">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="float-right" id="actions" hidden>
+                    <a href="@Url.Action("DownloadLatestFile","DocumentStream", new { doc_id = ViewBag.DocId })" class="btn btn-primary mr-2">Download Latest Version</a>
+                    @if (!ViewBag.IsMergedRequest)
+                    {
+                        <a href="@Url.Action("UploadNewDocument","DocumentStream", new {route = "initial", doc_id = ViewBag.DocId})" class="btn btn-primary mr-2">Upload New Document</a>
+                        <a href="@Url.Action("Index","Merge", new {doc_id = ViewBag.DocId})" class="btn btn-primary mr-2">Merge Branch</a>
+                    }
+                </div>
+            </section>
+        </div>
+        @Html.Partial("Footer")
+    </div>
+</div>

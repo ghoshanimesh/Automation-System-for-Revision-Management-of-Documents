@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "Admin Dashboard | Add a Book";
+}
+@model Tuple<List<FinalProject.Areas.Admin.Models.Subject>, List<FinalProject.Areas.Admin.Models.Level>, List<FinalProject.Areas.Admin.Models.Language>>
+<div id="app">
+    <div class="main-wrapper">
+        @Html.Partial("Navigation")
+        <!-- Main Content -->
+        <div class="main-content">
+            <section>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Add a Book</h4>
+                            </div>
+                            <div class="card-body">
+                                @using (Html.BeginForm("Add", "Book", FormMethod.Post, new { enctype = "multipart/form-data", @class = "needs-validation", @novalidate = "" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <div class="row">
+                                        <div class="form-group col-12 col-md-12 col-lg-6">
+                                            <label>Select Subject</label>
+                                            <select class="form-control selectric" name="sub_id" required>
+                                                @foreach (var item in Model.Item1)
+                                                {
+                                                    <option value="@item.Id">@item.BoardName &mdash; @item.StdName &mdash; @item.SubjectName </option>
+                                                }
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Please Select a Suject
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-12 col-md-12 col-lg-3">
+                                            <label>Select Level</label>
+                                            <select class="form-control selectric" name="level_id" required>
+                                                @foreach (var item in Model.Item2)
+                                                {
+                                                    <option value="@item.level_id">@item.level </option>
+                                                }
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Please Select a Level
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-12 col-md-12 col-lg-3">
+                                            <label>Select Language</label>
+                                            <select class="form-control selectric" name="lang_id" required>
+                                                @foreach (var item in Model.Item3)
+                                                {
+                                                    <option value="@item.language_id ">@item.language_name </option>
+                                                }
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Please Select a Language
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group  col-12 col-md-12 col-lg-6">
+                                            <label>File Browser</label>
+                                            <div class="form-control custom-file">
+                                                <input type="file" name="book_doc" class="custom-file-input" id="customFile">
+                                                <label class="custom-file-label" id="custom-file-name" for="customFile">Choose file</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-12 col-md-12 col-lg-6">
+                                            <label>Book Name</label>
+                                            <input type="text" class="form-control" name="book_name" required>
+                                            <div class="invalid-feedback">
+                                                Please fill in the Book name
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3 mr-3 text-right">
+                                        <button type="submit" class="btn btn-primary btn-lg btn-icon icon-right" tabindex="4">
+                                            Add Book
+                                        </button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        @Html.Partial("Footer")
+    </div>
+</div>
+@section scripts{
+    <script>
+        document.getElementById('customFile').onchange = function () {
+            document.getElementById('custom-file-name').innerHTML = this.files[0].name;
+        }
+    </script>
+}
